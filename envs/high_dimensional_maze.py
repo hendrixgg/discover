@@ -23,7 +23,8 @@ class HighDimensionalMaze(PipelineEnv):
         sys = mjcf.load(path)
         n_frames = 5
         if backend in ["spring", "positional"]:
-            sys = sys.tree_replace({"opt.timestep": 0.0025}) # 0.005
+            #sys = sys.tree_replace({"opt.timestep": 0.0025}) # 0.005
+            sys = sys.replace(dt=0.0025)
             n_frames = 10
 
         kwargs["n_frames"] = kwargs.get("n_frames", n_frames)
@@ -122,7 +123,7 @@ class HighDimensionalMaze(PipelineEnv):
 
         target_pos = pipeline_state.q[-self.n_dim:]
 
-        return jnp.concat([qpos, target_pos])
+        return jnp.concatenate([qpos, target_pos])
     
     @property
     def action_size(self) -> int:

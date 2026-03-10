@@ -413,7 +413,7 @@ def render(make_policy, params, env, exp_dir, exp_name, num_steps):
             key, subkey = jax.random.split(key)
             state = jit_env_reset(rng=subkey)
 
-    url = html.render(env.sys.tree_replace({"opt.timestep": env.dt}), rollout, height=1024)
+    url = html.render(env.sys.replace(dt=env.dt), rollout, height=1024)
     #with open(os.path.join(exp_dir, f"{exp_name}_{num_steps}.html"), "w") as file:
     #    file.write(url)
     wandb.log({"render": wandb.Html(url)})
